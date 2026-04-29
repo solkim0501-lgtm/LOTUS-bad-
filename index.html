@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Pure Lotus — Science</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f7f7f5;
+    color: #0a1628;
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  button { font-family: inherit; }
+  .nav { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #d0d4db; }
+  .nav-top { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; }
+  .nav-tag { font-size: 10px; letter-spacing: 0.25em; opacity: 0.4; }
+  .nav-brand { font-size: 18px; letter-spacing: -0.02em; color: #0a1628; }
+  .nav-spacer { width: 80px; }
+  .cat-scroll { display: flex; overflow-x: auto; padding: 0 16px 12px; gap: 8px; scrollbar-width: none; }
+  .cat-scroll::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    flex-shrink: 0; font-size: 11px; letter-spacing: 0.08em;
+    padding: 6px 14px; white-space: nowrap; cursor: pointer;
+    border: 1px solid #d0d4db; background: #fff; color: #0a1628;
+  }
+  .cat-btn.active { border-color: #0a1628; background: #0a1628; color: #fff; }
+  .section { background: #fff; padding: 0 20px; margin-top: 12px; }
+  .section-hdr { display: flex; align-items: baseline; gap: 12px; padding: 28px 0 16px; border-bottom: 1px solid #0a1628; }
+  .section-num { font-size: 11px; letter-spacing: 0.2em; opacity: 0.4; }
+  .section-title { font-size: 22px; letter-spacing: -0.02em; }
+  .divider { border-top: 1px solid #d0d4db; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #d0d4db; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #d0d4db; }
+  .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; background: #d0d4db; }
+  .cell { background: #fff; }
+  .metric-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; }
+  .metric-label { font-size: 12px; letter-spacing: 0.05em; opacity: 0.6; }
+  .metric-value { font-size: 13px; }
+  .metric-sub { font-size: 10px; opacity: 0.4; margin-left: 4px; }
+ 
+  /* Hero */
+  .hero { background: #fff; padding: 24px 20px; }
+  .hero-tag { font-size: 11px; letter-spacing: 0.2em; opacity: 0.4; margin-bottom: 20px; }
+  .hero-img-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
+  .hero-img { width: 220px; height: 220px; object-fit: cover; }
+  .hero-name-block { border-top: 1px solid #d0d4db; border-bottom: 1px solid #d0d4db; padding: 16px 0; }
+  .hero-mini-tag { font-size: 11px; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 4px; }
+  .hero-name { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .hero-desc { font-size: 12px; opacity: 0.5; }
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid #d0d4db; margin-top: 20px; }
+  .stat { padding: 16px 0; text-align: center; }
+  .stat:not(:last-child) { border-right: 1px solid #d0d4db; }
+  .stat-v { font-size: 24px; letter-spacing: -0.02em; }
+  .stat-l { font-size: 10px; opacity: 0.4; letter-spacing: 0.1em; }
+ 
+  /* Patent cards */
+  .patent { padding: 12px; }
+  .patent-cat { font-size: 8px; letter-spacing: 0.15em; opacity: 0.4; margin-bottom: 4px; }
+  .patent-id { font-size: 10px; font-family: monospace; margin-bottom: 8px; }
+  .patent-title { font-size: 9px; opacity: 0.6; line-height: 1.4; margin-bottom: 10px; }
+  .efficacy-row { display: flex; align-items: center; gap: 6px; }
+  .efficacy-bar { flex: 1; height: 2px; background: #e8e8e6; }
+  .efficacy-fill { height: 100%; background: #0a1628; }
+  .efficacy-pct { font-size: 10px; font-family: monospace; }
+  .patent-year { font-size: 8px; opacity: 0.3; margin-top: 4px; }
+ 
+  .patent-strip {
+    border-top: 1px solid #d0d4db; border-bottom: 1px solid #d0d4db;
+    padding: 8px 0; margin: 16px 0;
+    display: flex; flex-wrap: wrap; gap: 4px 16px;
+  }
+  .patent-strip span { font-size: 9px; font-family: monospace; opacity: 0.4; }
+ 
+  .pub-label { font-size: 10px; letter-spacing: 0.2em; opacity: 0.4; margin-bottom: 12px; }
+  .citation { padding: 12px 0; }
+  .citation-text { font-size: 10px; opacity: 0.8; line-height: 1.5; margin-bottom: 4px; }
+  .citation-num { opacity: 0.4; }
+  .citation-journal { font-size: 9px; font-style: italic; opacity: 0.4; }
+ 
+  .clinical-tag { font-size: 10px; opacity: 0.4; letter-spacing: 0.1em; margin: 16px 0 12px; }
+  .ba-img-wrap { position: relative; }
+  .ba-img { width: 100%; height: 176px; object-fit: cover; display: block; }
+  .ba-label-bar { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 12px; background: rgba(10,22,40,0.75); }
+  .ba-label { color: #fff; font-size: 10px; letter-spacing: 0.15em; }
+ 
+  .clinical { padding: 16px 0; }
+  .clinical-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .clinical-name { font-size: 13px; letter-spacing: 0.03em; }
+  .clinical-meta { font-size: 10px; opacity: 0.4; margin-top: 2px; }
+  .clinical-val { font-size: 28px; line-height: 1; letter-spacing: -0.02em; }
+  .clinical-delta { font-size: 10px; opacity: 0.4; }
+  .clinical-bar { height: 3px; background: #e8e8e6; position: relative; }
+  .clinical-fill { position: absolute; top: 0; left: 0; height: 100%; background: #0a1628; }
+  .clinical-axis { display: flex; justify-content: space-between; margin-top: 4px; }
+  .clinical-axis span { font-size: 8px; opacity: 0.3; }
+ 
+  .ing-table { border: 1px solid #d0d4db; }
+  .ing-head { display: grid; grid-template-columns: 2fr 1fr 2fr; padding: 8px 12px; background: #f0f0ee; }
+  .ing-head span { font-size: 9px; letter-spacing: 0.1em; opacity: 0.5; }
+  .ing-row { display: grid; grid-template-columns: 2fr 1fr 2fr; padding: 10px 12px; }
+  .ing-name { font-size: 10px; line-height: 1.4; padding-right: 4px; }
+  .ing-conc { font-size: 10px; font-family: monospace; opacity: 0.6; }
+  .ing-fn { font-size: 10px; opacity: 0.6; line-height: 1.4; }
+ 
+  .award-row { padding: 12px 0; display: flex; justify-content: space-between; align-items: center; }
+  .award-name { font-size: 12px; }
+  .award-org { font-size: 10px; opacity: 0.4; margin-top: 2px; }
+  .award-year { font-size: 11px; font-family: monospace; opacity: 0.5; }
+ 
+  .cert-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cert { font-size: 10px; letter-spacing: 0.1em; padding: 6px 12px; border: 1px solid #0a1628; }
+ 
+  .store { position: relative; }
+  .store img { width: 100%; height: 100px; object-fit: cover; display: block; }
+  .store-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 6px 8px;
+    background: linear-gradient(to top, rgba(10,22,40,0.85) 0%, transparent 60%);
+  }
+  .store-name { color: #fff; font-size: 9px; line-height: 1.3; }
+  .store-loc { color: rgba(255,255,255,0.5); font-size: 8px; }
+ 
+  .region { padding: 12px 0; }
+  .region-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .region-name { font-size: 12px; }
+  .region-stores { font-size: 11px; opacity: 0.4; font-family: monospace; }
+  .region-pct { font-size: 14px; font-family: monospace; margin-left: 12px; }
+  .region-bar { height: 2px; background: #e8e8e6; }
+  .region-fill { height: 100%; background: #0a1628; }
+ 
+  .footer { border-top: 1px solid #d0d4db; padding-top: 20px; }
+  .footer-brand { font-size: 10px; letter-spacing: 0.2em; margin-bottom: 12px; }
+  .footer-row { display: flex; gap: 16px; padding: 5px 0; }
+  .footer-key { font-size: 10px; opacity: 0.3; width: 36px; flex-shrink: 0; }
+  .footer-val { font-size: 10px; opacity: 0.6; }
+</style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-top">
+    <span class="nav-tag">VEGAN BEAUTY SCIENCE</span>
+    <span class="nav-brand">The Pure Lotus</span>
+    <span class="nav-spacer"></span>
+  </div>
+  <div class="cat-scroll" id="catScroll"></div>
+</div>
+ 
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">HERO PRODUCT · 스킨/에센스</div>
+  <div class="hero-img-wrap">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1639996112254-645a5f6fe946?w=600" alt="Lotus Probiotic Essence" />
+  </div>
+  <div class="hero-name-block">
+    <div class="hero-mini-tag">HERO PRODUCT</div>
+    <div class="hero-name">Lotus Probiotic Essence</div>
+    <div class="hero-desc">Fermented Lotus Complex · Microbiome-Optimized Formula</div>
+  </div>
+  <div class="divider"></div>
+  <div class="metric-row"><span class="metric-label">Regimen Step</span><span class="metric-value">Essence / Toner</span></div>
+  <div class="divider"></div>
+  <div class="metric-row"><span class="metric-label">Format</span><span class="metric-value">Aqueous Gel Serum</span></div>
+  <div class="divider"></div>
+  <div class="metric-row"><span class="metric-label">Targets</span><span class="metric-value">Elasticity · Moisture · Radiance</span></div>
+  <div class="divider"></div>
+  <div class="metric-row"><span class="metric-label">Suited to</span><span class="metric-value">All Skin Types</span></div>
+  <div class="divider"></div>
+  <div class="metric-row"><span class="metric-label">Key Technology</span><span class="metric-value">Lotus Probiotic Complex™</span></div>
+  <div class="divider"></div>
+  <div class="metric-row"><span class="metric-label">Volume</span><span class="metric-value">150 ml<span class="metric-sub">/ 50 ml</span></span></div>
+  <div class="divider"></div>
+ 
+  <div class="stats-row">
+    <div class="stat"><div class="stat-v">14+</div><div class="stat-l">Years R&amp;D</div></div>
+    <div class="stat"><div class="stat-v">6M+</div><div class="stat-l">Users</div></div>
+    <div class="stat"><div class="stat-v">38</div><div class="stat-l">Countries</div></div>
+  </div>
+</div>
+ 
+<!-- 01 RESEARCH & PATENTS -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">01</span><span class="section-title">Research &amp; Patents</span></div>
+  <div class="grid2" id="patentGrid" style="margin-top: 16px; margin-bottom: 4px;"></div>
+  <div class="patent-strip" id="patentStrip"></div>
+  <div style="margin-bottom: 4px;">
+    <div class="pub-label">PUBLISHED RESEARCH</div>
+    <div id="citations"></div>
+  </div>
+  <div class="grid4" style="margin-top: 20px; margin-bottom: 24px;">
+    <div class="cell stat"><div class="stat-v">6</div><div class="stat-l" style="font-size:9px;">Patents</div></div>
+    <div class="cell stat"><div class="stat-v">4</div><div class="stat-l" style="font-size:9px;">Papers</div></div>
+    <div class="cell stat"><div class="stat-v">156</div><div class="stat-l" style="font-size:9px;">Trial n</div></div>
+    <div class="cell stat"><div class="stat-v">8wk</div><div class="stat-l" style="font-size:9px;">Study</div></div>
+  </div>
+</div>
+ 
+<!-- 02 CLINICAL EVIDENCE -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">02</span><span class="section-title">Clinical Evidence</span></div>
+  <div class="clinical-tag">8-WEEK DOUBLE-BLIND RCT · n=156 · p&lt;0.001 · Lotus Probiotic Technology</div>
+  <div class="grid2" style="margin-bottom: 20px;">
+    <div class="ba-img-wrap">
+      <img class="ba-img" src="https://images.unsplash.com/photo-1541752857837-f8a0154fd092?w=500" alt="Baseline" />
+      <div class="ba-label-bar"><span class="ba-label">BASELINE</span></div>
+    </div>
+    <div class="ba-img-wrap">
+      <img class="ba-img" src="https://images.unsplash.com/photo-1599690901937-81d763397828?w=500" alt="Week 8" />
+      <div class="ba-label-bar"><span class="ba-label">WEEK 8</span></div>
+    </div>
+  </div>
+  <div id="clinicalMetrics"></div>
+  <div style="margin-top: 24px; margin-bottom: 24px;">
+    <div class="pub-label">ACTIVE INGREDIENT PROFILE</div>
+    <div class="ing-table">
+      <div class="ing-head">
+        <span>INCI NAME</span><span>CONC.</span><span>FUNCTION</span>
+      </div>
+      <div id="ingredients"></div>
+    </div>
+  </div>
+</div>
+ 
+<!-- 03 RECOGNITION -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">03</span><span class="section-title">Recognition</span></div>
+  <div class="clinical-tag">12 INTERNATIONAL AWARDS &amp; CERTIFICATIONS · 2023–2026</div>
+  <div id="awards"></div>
+  <div style="margin-top: 20px; margin-bottom: 24px;">
+    <div class="pub-label">ACTIVE CERTIFICATIONS</div>
+    <div class="cert-list" id="certs"></div>
+  </div>
+</div>
+ 
+<!-- 04 GLOBAL PRESENCE -->
+<div class="section" style="padding-bottom: 40px;">
+  <div class="section-hdr"><span class="section-num">04</span><span class="section-title">Global Presence</span></div>
+  <div class="clinical-tag">270+ RETAIL TOUCHPOINTS · 38 COUNTRIES · 4 CONTINENTS</div>
+  <div class="grid3" id="storeGrid" style="margin-bottom: 20px;"></div>
+  <div class="grid4" style="margin-bottom: 20px;">
+    <div class="cell stat"><div class="stat-v">38</div><div class="stat-l" style="font-size:9px;">Duty-Free</div></div>
+    <div class="cell stat"><div class="stat-v">142</div><div class="stat-l" style="font-size:9px;">Department</div></div>
+    <div class="cell stat"><div class="stat-v">89</div><div class="stat-l" style="font-size:9px;">Flagship</div></div>
+    <div class="cell stat"><div class="stat-v">520+</div><div class="stat-l" style="font-size:9px;">Partners</div></div>
+  </div>
+  <div style="margin-bottom: 20px;">
+    <div class="pub-label">REGIONAL DISTRIBUTION</div>
+    <div id="regions"></div>
+  </div>
+  <div class="footer">
+    <div class="footer-brand">THE PURE LOTUS CO., LTD.</div>
+    <div class="footer-row"><span class="footer-key">HQ</span><span class="footer-val">Gangnam-daero, Gangnam-gu, Seoul 06524, Korea</span></div>
+    <div class="footer-row"><span class="footer-key">R&amp;D</span><span class="footer-val">Sejong Science Complex, Building 7F</span></div>
+    <div class="footer-row"><span class="footer-key">Mfg.</span><span class="footer-val">GMP-certified, Chungcheongbuk-do</span></div>
+    <div class="footer-row"><span class="footer-key">Tel</span><span class="footer-val">+82-2-1234-5678</span></div>
+    <div class="footer-row"><span class="footer-key">Email</span><span class="footer-val">science@purelotus.com</span></div>
+  </div>
+</div>
+ 
+<script>
+  const patentData = [
+    { id: 'KR 10-2156348', title: 'Probiotic Fermentation Complex', year: '2021', efficacy: 87, category: 'Biotechnology' },
+    { id: 'KR 10-2021-0132727', title: 'Lotus Ceramide Extraction', year: '2022', efficacy: 92, category: 'Extraction Tech' },
+    { id: 'KR 10-2018-0089423', title: 'Micro-encapsulation System', year: '2019', efficacy: 78, category: 'Delivery System' },
+    { id: 'KR 10-2020-0145892', title: 'Hyaluronic Crosslink Formula', year: '2021', efficacy: 95, category: 'Formulation' },
+    { id: 'KR 10-2019-0098234', title: 'pH-Buffered Vegan Base', year: '2020', efficacy: 83, category: 'Base Chemistry' },
+    { id: 'KR 10-2022-0067451', title: 'Adenosine Stabilization', year: '2023', efficacy: 89, category: 'Preservation' },
+  ];
+  const citations = [
+    { authors: 'Kim, J. et al.', year: '2023', journal: 'J. Cosmetic Dermatology', vol: '22(4)', pp: '1247–1256', title: 'Probiotic skin barrier restoration via topical application of fermented Lotus extracts' },
+    { authors: 'Park, S. & Lee, H.', year: '2024', journal: 'Int. J. Molecular Sciences', vol: '15(3)', pp: '892–904', title: 'Molecular pathways in ceramide-mediated transepidermal water loss reduction' },
+    { authors: 'Choi, M. et al.', year: '2023', journal: 'Biotechnology Letters', vol: '45(7)', pp: '1134–1142', title: 'Fermentation-derived bioactives and their epigenetic skin-aging mechanisms' },
+    { authors: 'Jung, Y. & Kim, B.', year: '2024', journal: 'Skin Research & Technology', vol: '30(2)', pp: 'e13598', title: 'Double-blind RCT: Lotus Probiotic complex on elasticity and moisture retention' },
+  ];
+  const clinicalMetrics = [
+    { label: 'Skin Elasticity', value: 114, delta: '+14%', period: '8 weeks', n: 156, p: '< 0.001' },
+    { label: 'Moisture Retention', value: 115, delta: '+15%', period: '8 weeks', n: 156, p: '< 0.001' },
+    { label: 'Skin Firmness', value: 108, delta: '+8%', period: '8 weeks', n: 156, p: '< 0.005' },
+    { label: 'Radiance Index', value: 121, delta: '+21%', period: '8 weeks', n: 156, p: '< 0.001' },
+  ];
+  const ingredients = [
+    { name: 'Lotus Probiotic Complex™', conc: 'Proprietary', fn: 'Microbiome balancing' },
+    { name: 'Sodium Hyaluronate', conc: '3.0%', fn: 'Deep hydration' },
+    { name: 'Niacinamide', conc: '5.0%', fn: 'Barrier reinforcement' },
+    { name: 'Multi-Peptide Blend', conc: '7 types', fn: 'Collagen synthesis' },
+    { name: 'Ceramide NP', conc: '1.5%', fn: 'Lipid barrier repair' },
+    { name: 'Adenosine', conc: '0.04%', fn: 'Anti-aging regulation' },
+  ];
+  const awards = [
+    { name: 'Best Beauty Buys', org: 'Korea Health & Beauty', year: '2025' },
+    { name: 'Ministry of Trade Commendation', org: 'MOTIE Korea', year: '2024' },
+    { name: 'Global Small Giant', org: 'Ministry of SMEs', year: '2024' },
+    { name: 'K-Beauty Excellence', org: 'KCII', year: '2025' },
+    { name: 'Vegan Innovation Award', org: 'The Vegan Society', year: '2024' },
+    { name: 'Clean Beauty Certified', org: 'EWG', year: '2025' },
+    { name: 'Dermatology Tested Seal', org: 'SDDL', year: '2024' },
+    { name: "Women's Health Best Pick", org: "Women's Health KR", year: '2025' },
+    { name: 'Elle Beauty Award', org: 'Elle Korea', year: '2024' },
+    { name: 'Allure Breakthrough', org: 'Allure Magazine', year: '2025' },
+    { name: 'GMP Certified', org: 'MFDS Korea', year: '2023' },
+    { name: 'COSMOS Certified', org: 'Ecocert', year: '2023' },
+  ];
+  const certifications = ['Vegan Society', 'Cruelty-Free', 'HALAL', 'GMP MFDS', 'COSMOS', 'PETA', 'REACH', 'ISO 22716'];
+  const storeLocations = [
+    { name: 'JDC Duty-Free', city: 'Jeju', country: 'Korea', img: 'https://images.unsplash.com/photo-1777137746948-ffeb0e37d00a?w=400' },
+    { name: 'Shinsegae Gangnam', city: 'Seoul', country: 'Korea', img: 'https://images.unsplash.com/photo-1590598688007-0f4f11c50f95?w=400' },
+    { name: 'Lotte Department', city: 'Seoul', country: 'Korea', img: 'https://images.unsplash.com/photo-1760020954071-13a2c86076ff?w=400' },
+    { name: 'Moscow Flagship', city: 'Moscow', country: 'Russia', img: 'https://images.unsplash.com/photo-1572896643986-33722ecf2097?w=400' },
+    { name: 'Shanghai Boutique', city: 'Shanghai', country: 'China', img: 'https://images.unsplash.com/photo-1723173330015-3e8eb2bb3333?w=400' },
+    { name: 'Beijing Plaza', city: 'Beijing', country: 'China', img: 'https://images.unsplash.com/photo-1590598688007-0f4f11c50f95?w=400' },
+    { name: 'Hong Kong IFC', city: 'Hong Kong', country: 'HK', img: 'https://images.unsplash.com/photo-1723173330015-3e8eb2bb3333?w=400' },
+    { name: 'Tokyo Shibuya', city: 'Tokyo', country: 'Japan', img: 'https://images.unsplash.com/photo-1777137746948-ffeb0e37d00a?w=400' },
+    { name: 'Singapore Marina', city: 'Singapore', country: 'SG', img: 'https://images.unsplash.com/photo-1760020954071-13a2c86076ff?w=400' },
+    { name: 'Dubai Mall', city: 'Dubai', country: 'UAE', img: 'https://images.unsplash.com/photo-1572896643986-33722ecf2097?w=400' },
+    { name: 'London Harrods', city: 'London', country: 'UK', img: 'https://images.unsplash.com/photo-1723173330015-3e8eb2bb3333?w=400' },
+    { name: 'Paris Le Marais', city: 'Paris', country: 'France', img: 'https://images.unsplash.com/photo-1590598688007-0f4f11c50f95?w=400' },
+  ];
+  const regionalData = [
+    { region: 'Asia-Pacific', pct: 68, stores: 183 },
+    { region: 'Middle East', pct: 18, stores: 49 },
+    { region: 'Europe', pct: 10, stores: 27 },
+    { region: 'Americas', pct: 4, stores: 11 },
+  ];
+ 
+  // Categories
+  const categories = ['올 프로덕츠', '스킨/에센스', '크림', '클렌져', '선스크린', '세럼', '마스크'];
+  let activeCat = '스킨/에센스';
+  const catScroll = document.getElementById('catScroll');
+  function renderCats() {
+    catScroll.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'cat-btn' + (cat === activeCat ? ' active' : '');
+      btn.textContent = cat;
+      btn.onclick = () => { activeCat = cat; renderCats(); };
+      catScroll.appendChild(btn);
+    });
+  }
+  renderCats();
+ 
+  // Patent grid
+  document.getElementById('patentGrid').innerHTML = patentData.map(p => `
+    <div class="cell patent">
+      <div class="patent-cat">${p.category.toUpperCase()}</div>
+      <div class="patent-id">${p.id}</div>
+      <div class="patent-title">${p.title}</div>
+      <div class="efficacy-row">
+        <div class="efficacy-bar"><div class="efficacy-fill" style="width:${p.efficacy}%"></div></div>
+        <span class="efficacy-pct">${p.efficacy}%</span>
+      </div>
+      <div class="patent-year">${p.year} · Efficacy Index</div>
+    </div>
+  `).join('');
+ 
+  // Patent strip
+  document.getElementById('patentStrip').innerHTML = patentData.map(p => `<span>${p.id}</span>`).join('');
+ 
+  // Citations
+  document.getElementById('citations').innerHTML = citations.map((c, i) => `
+    <div>
+      <div class="citation">
+        <div class="citation-text"><span class="citation-num">[${i+1}] </span>${c.authors} (${c.year}). <em>${c.title.substring(0,60)}…</em></div>
+        <div class="citation-journal">${c.journal}, ${c.vol}, ${c.pp}</div>
+      </div>
+      ${i < citations.length-1 ? '<div class="divider"></div>' : ''}
+    </div>
+  `).join('');
+ 
+  // Clinical metrics
+  document.getElementById('clinicalMetrics').innerHTML = clinicalMetrics.map((m, i) => `
+    <div>
+      <div class="clinical">
+        <div class="clinical-top">
+          <div>
+            <div class="clinical-name">${m.label}</div>
+            <div class="clinical-meta">n=${m.n} · p${m.p} · ${m.period}</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="clinical-val">${m.value}%</div>
+            <div class="clinical-delta">${m.delta} vs. baseline</div>
+          </div>
+        </div>
+        <div class="clinical-bar"><div class="clinical-fill" style="width:${m.value}%"></div></div>
+        <div class="clinical-axis"><span>0%</span><span>Baseline 100%</span></div>
+      </div>
+      ${i < clinicalMetrics.length-1 ? '<div class="divider"></div>' : ''}
+    </div>
+  `).join('');
+ 
+  // Ingredients
+  document.getElementById('ingredients').innerHTML = ingredients.map(ing => `
+    <div class="divider"></div>
+    <div class="ing-row">
+      <span class="ing-name">${ing.name}</span>
+      <span class="ing-conc">${ing.conc}</span>
+      <span class="ing-fn">${ing.fn}</span>
+    </div>
+  `).join('');
+ 
+  // Awards
+  document.getElementById('awards').innerHTML = awards.map((a, i) => `
+    <div>
+      <div class="award-row">
+        <div>
+          <div class="award-name">${a.name}</div>
+          <div class="award-org">${a.org}</div>
+        </div>
+        <div class="award-year">${a.year}</div>
+      </div>
+      ${i < awards.length-1 ? '<div class="divider"></div>' : ''}
+    </div>
+  `).join('');
+ 
+  // Certifications
+  document.getElementById('certs').innerHTML = certifications.map(c => `<span class="cert">${c}</span>`).join('');
+ 
+  // Stores
+  document.getElementById('storeGrid').innerHTML = storeLocations.map(loc => `
+    <div class="store">
+      <img src="${loc.img}" alt="${loc.name}" />
+      <div class="store-overlay">
+        <div class="store-name">${loc.name}</div>
+        <div class="store-loc">${loc.city}, ${loc.country}</div>
+      </div>
+    </div>
+  `).join('');
+ 
+  // Regions
+  document.getElementById('regions').innerHTML = regionalData.map((r, i) => `
+    <div>
+      <div class="region">
+        <div class="region-top">
+          <span class="region-name">${r.region}</span>
+          <div style="display:flex; align-items:baseline; gap:12px;">
+            <span class="region-stores">${r.stores} stores</span>
+            <span class="region-pct">${r.pct}%</span>
+          </div>
+        </div>
+        <div class="region-bar"><div class="region-fill" style="width:${r.pct}%"></div></div>
+      </div>
+      ${i < regionalData.length-1 ? '<div class="divider"></div>' : ''}
+    </div>
+  `).join('');
+</script>
+</body>
+</html>
