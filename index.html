@@ -3,18 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Pure Lotus — Science</title>
+<title>더퓨어로터스 — Clean & Vegan Beauty from Jeju</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
     background: #f7f7f5;
     color: #0a1628;
     max-width: 430px;
     margin: 0 auto;
     min-height: 100vh;
+    line-height: 1.5;
   }
   button { font-family: inherit; }
+
+  /* NAV */
   .nav { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #d0d4db; }
   .nav-top { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; }
   .nav-tag { font-size: 10px; letter-spacing: 0.25em; opacity: 0.4; }
@@ -23,314 +26,923 @@
   .cat-scroll { display: flex; overflow-x: auto; padding: 0 16px 12px; gap: 8px; scrollbar-width: none; }
   .cat-scroll::-webkit-scrollbar { display: none; }
   .cat-btn {
-    flex-shrink: 0; font-size: 11px; letter-spacing: 0.08em;
+    flex-shrink: 0; font-size: 11px; letter-spacing: 0.05em;
     padding: 6px 14px; white-space: nowrap; cursor: pointer;
     border: 1px solid #d0d4db; background: #fff; color: #0a1628;
   }
   .cat-btn.active { border-color: #0a1628; background: #0a1628; color: #fff; }
+
+  /* SECTIONS */
   .section { background: #fff; padding: 0 20px; margin-top: 12px; }
   .section-hdr { display: flex; align-items: baseline; gap: 12px; padding: 28px 0 16px; border-bottom: 1px solid #0a1628; }
   .section-num { font-size: 11px; letter-spacing: 0.2em; opacity: 0.4; }
   .section-title { font-size: 22px; letter-spacing: -0.02em; }
+  .section-sub { font-size: 11px; opacity: 0.5; letter-spacing: 0.05em; margin: 16px 0 12px; line-height: 1.5; }
   .divider { border-top: 1px solid #d0d4db; }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #d0d4db; }
-  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #d0d4db; }
-  .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; background: #d0d4db; }
-  .cell { background: #fff; }
-  .metric-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; }
-  .metric-label { font-size: 12px; letter-spacing: 0.05em; opacity: 0.6; }
-  .metric-value { font-size: 13px; }
-  .metric-sub { font-size: 10px; opacity: 0.4; margin-left: 4px; }
- 
-  /* Hero */
-  .hero { background: #fff; padding: 24px 20px; }
-  .hero-tag { font-size: 11px; letter-spacing: 0.2em; opacity: 0.4; margin-bottom: 20px; }
+
+  /* HERO */
+  .hero { background: #fff; padding: 32px 20px 24px; text-align: center; }
+  .hero-tag { font-size: 11px; letter-spacing: 0.3em; opacity: 0.5; margin-bottom: 16px; }
+  .hero-headline { font-size: 26px; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 8px; font-weight: 500; }
+  .hero-headline em { font-style: italic; opacity: 0.7; }
+  .hero-loc { font-size: 11px; letter-spacing: 0.3em; opacity: 0.5; margin-bottom: 24px; }
   .hero-img-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
-  .hero-img { width: 220px; height: 220px; object-fit: cover; }
-  .hero-name-block { border-top: 1px solid #d0d4db; border-bottom: 1px solid #d0d4db; padding: 16px 0; }
-  .hero-mini-tag { font-size: 11px; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 4px; }
-  .hero-name { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 4px; }
-  .hero-desc { font-size: 12px; opacity: 0.5; }
-  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid #d0d4db; margin-top: 20px; }
-  .stat { padding: 16px 0; text-align: center; }
-  .stat:not(:last-child) { border-right: 1px solid #d0d4db; }
-  .stat-v { font-size: 24px; letter-spacing: -0.02em; }
-  .stat-l { font-size: 10px; opacity: 0.4; letter-spacing: 0.1em; }
- 
-  /* Patent cards */
-  .patent { padding: 12px; }
-  .patent-cat { font-size: 8px; letter-spacing: 0.15em; opacity: 0.4; margin-bottom: 4px; }
+  .hero-img { width: 100%; max-width: 360px; height: auto; object-fit: contain; }
+  .hero-quote { font-size: 13px; line-height: 1.7; opacity: 0.75; padding: 0 8px; margin-bottom: 8px; }
+  .hero-quote strong { color: #0a1628; opacity: 1; font-weight: 500; }
+
+  /* MISSION VISION */
+  .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #d0d4db; margin: 16px 0 24px; }
+  .mv-cell { background: #fff; padding: 16px 12px; }
+  .mv-icon { font-size: 18px; margin-bottom: 8px; opacity: 0.6; }
+  .mv-en { font-size: 9px; letter-spacing: 0.15em; opacity: 0.5; margin-bottom: 6px; }
+  .mv-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .mv-desc { font-size: 11px; line-height: 1.5; opacity: 0.7; }
+
+  /* BRAND BLOCK */
+  .brand-block { padding: 16px 0; }
+  .brand-name { font-size: 15px; letter-spacing: 0.05em; font-weight: 500; margin-bottom: 4px; }
+  .brand-en { font-size: 11px; letter-spacing: 0.1em; opacity: 0.5; font-style: italic; margin-bottom: 8px; }
+  .brand-desc { font-size: 12px; opacity: 0.7; line-height: 1.6; margin-bottom: 8px; }
+  .brand-patent { font-size: 10px; opacity: 0.6; line-height: 1.5; padding: 8px 0; border-top: 1px solid #e8e8e6; }
+  .brand-patent-num { font-family: monospace; opacity: 0.7; }
+
+  /* PATENT GRID */
+  .patent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #d0d4db; margin-top: 16px; margin-bottom: 4px; }
+  .patent { background: #fff; padding: 12px; }
+  .patent-cat { font-size: 9px; letter-spacing: 0.1em; opacity: 0.5; margin-bottom: 4px; }
   .patent-id { font-size: 10px; font-family: monospace; margin-bottom: 8px; }
-  .patent-title { font-size: 9px; opacity: 0.6; line-height: 1.4; margin-bottom: 10px; }
-  .efficacy-row { display: flex; align-items: center; gap: 6px; }
-  .efficacy-bar { flex: 1; height: 2px; background: #e8e8e6; }
-  .efficacy-fill { height: 100%; background: #0a1628; }
-  .efficacy-pct { font-size: 10px; font-family: monospace; }
-  .patent-year { font-size: 8px; opacity: 0.3; margin-top: 4px; }
- 
-  .patent-strip {
-    border-top: 1px solid #d0d4db; border-bottom: 1px solid #d0d4db;
-    padding: 8px 0; margin: 16px 0;
-    display: flex; flex-wrap: wrap; gap: 4px 16px;
+  .patent-title { font-size: 11px; opacity: 0.75; line-height: 1.5; margin-bottom: 8px; }
+  .patent-status { font-size: 9px; opacity: 0.4; }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: #f0f0ee; padding: 16px; margin: 16px 0;
+    border-left: 3px solid #0a1628;
   }
-  .patent-strip span { font-size: 9px; font-family: monospace; opacity: 0.4; }
- 
-  .pub-label { font-size: 10px; letter-spacing: 0.2em; opacity: 0.4; margin-bottom: 12px; }
-  .citation { padding: 12px 0; }
-  .citation-text { font-size: 10px; opacity: 0.8; line-height: 1.5; margin-bottom: 4px; }
-  .citation-num { opacity: 0.4; }
-  .citation-journal { font-size: 9px; font-style: italic; opacity: 0.4; }
- 
-  .clinical-tag { font-size: 10px; opacity: 0.4; letter-spacing: 0.1em; margin: 16px 0 12px; }
-  .ba-img-wrap { position: relative; }
-  .ba-img { width: 100%; height: 176px; object-fit: cover; display: block; }
-  .ba-label-bar { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 12px; background: rgba(10,22,40,0.75); }
-  .ba-label { color: #fff; font-size: 10px; letter-spacing: 0.15em; }
- 
+  .highlight-tag { font-size: 10px; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 6px; }
+  .highlight-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .highlight-num { font-size: 11px; font-family: monospace; opacity: 0.7; margin-bottom: 4px; }
+  .highlight-desc { font-size: 11px; opacity: 0.7; line-height: 1.5; }
+
+  /* STAT CELLS */
+  .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; background: #d0d4db; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #d0d4db; }
+  .stat { background: #fff; padding: 14px 0; text-align: center; }
+  .stat-v { font-size: 22px; letter-spacing: -0.02em; font-weight: 500; }
+  .stat-l { font-size: 9px; opacity: 0.5; letter-spacing: 0.05em; margin-top: 2px; }
+
+  /* CLINICAL */
   .clinical { padding: 16px 0; }
   .clinical-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .clinical-name { font-size: 13px; letter-spacing: 0.03em; }
-  .clinical-meta { font-size: 10px; opacity: 0.4; margin-top: 2px; }
-  .clinical-val { font-size: 28px; line-height: 1; letter-spacing: -0.02em; }
-  .clinical-delta { font-size: 10px; opacity: 0.4; }
-  .clinical-bar { height: 3px; background: #e8e8e6; position: relative; }
+  .clinical-name { font-size: 13px; font-weight: 500; }
+  .clinical-product { font-size: 10px; opacity: 0.5; margin-top: 2px; }
+  .clinical-val { font-size: 28px; line-height: 1; letter-spacing: -0.02em; font-weight: 500; }
+  .clinical-delta { font-size: 10px; opacity: 0.5; margin-top: 2px; }
+  .clinical-bar { height: 4px; background: #e8e8e6; position: relative; }
   .clinical-fill { position: absolute; top: 0; left: 0; height: 100%; background: #0a1628; }
-  .clinical-axis { display: flex; justify-content: space-between; margin-top: 4px; }
-  .clinical-axis span { font-size: 8px; opacity: 0.3; }
- 
-  .ing-table { border: 1px solid #d0d4db; }
-  .ing-head { display: grid; grid-template-columns: 2fr 1fr 2fr; padding: 8px 12px; background: #f0f0ee; }
-  .ing-head span { font-size: 9px; letter-spacing: 0.1em; opacity: 0.5; }
-  .ing-row { display: grid; grid-template-columns: 2fr 1fr 2fr; padding: 10px 12px; }
-  .ing-name { font-size: 10px; line-height: 1.4; padding-right: 4px; }
-  .ing-conc { font-size: 10px; font-family: monospace; opacity: 0.6; }
-  .ing-fn { font-size: 10px; opacity: 0.6; line-height: 1.4; }
- 
-  .award-row { padding: 12px 0; display: flex; justify-content: space-between; align-items: center; }
-  .award-name { font-size: 12px; }
-  .award-org { font-size: 10px; opacity: 0.4; margin-top: 2px; }
-  .award-year { font-size: 11px; font-family: monospace; opacity: 0.5; }
- 
-  .cert-list { display: flex; flex-wrap: wrap; gap: 8px; }
-  .cert { font-size: 10px; letter-spacing: 0.1em; padding: 6px 12px; border: 1px solid #0a1628; }
- 
-  .store { position: relative; }
-  .store img { width: 100%; height: 100px; object-fit: cover; display: block; }
-  .store-overlay {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 6px 8px;
-    background: linear-gradient(to top, rgba(10,22,40,0.85) 0%, transparent 60%);
+
+  /* AWARD ROW */
+  .award-row { padding: 12px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .award-name { font-size: 12px; font-weight: 500; }
+  .award-org { font-size: 10px; opacity: 0.5; margin-top: 2px; }
+  .award-product { font-size: 10px; opacity: 0.5; font-style: italic; margin-top: 2px; }
+  .award-year { font-size: 11px; font-family: monospace; opacity: 0.6; flex-shrink: 0; }
+
+  /* MAGAZINE */
+  .mag-row { padding: 10px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .mag-product { font-size: 11px; font-weight: 500; }
+  .mag-mag { font-size: 10px; opacity: 0.6; margin-top: 2px; }
+  .mag-date { font-size: 10px; font-family: monospace; opacity: 0.5; flex-shrink: 0; }
+
+  /* STORE */
+  .store { padding: 12px 0; display: flex; justify-content: space-between; align-items: center; }
+  .store-name { font-size: 12px; font-weight: 500; }
+  .store-cat { font-size: 10px; opacity: 0.5; margin-top: 2px; }
+  .store-flag { font-size: 10px; opacity: 0.7; font-family: monospace; }
+
+  /* CERTIFICATIONS */
+  .cert-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .cert { font-size: 10px; letter-spacing: 0.05em; padding: 6px 12px; border: 1px solid #0a1628; }
+
+  /* PRODUCT CARD */
+  .product-card {
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 14px;
+    align-items: start;
   }
-  .store-name { color: #fff; font-size: 9px; line-height: 1.3; }
-  .store-loc { color: rgba(255,255,255,0.5); font-size: 8px; }
- 
-  .region { padding: 12px 0; }
-  .region-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .region-name { font-size: 12px; }
-  .region-stores { font-size: 11px; opacity: 0.4; font-family: monospace; }
-  .region-pct { font-size: 14px; font-family: monospace; margin-left: 12px; }
-  .region-bar { height: 2px; background: #e8e8e6; }
-  .region-fill { height: 100%; background: #0a1628; }
- 
-  .footer { border-top: 1px solid #d0d4db; padding-top: 20px; }
-  .footer-brand { font-size: 10px; letter-spacing: 0.2em; margin-bottom: 12px; }
-  .footer-row { display: flex; gap: 16px; padding: 5px 0; }
-  .footer-key { font-size: 10px; opacity: 0.3; width: 36px; flex-shrink: 0; }
-  .footer-val { font-size: 10px; opacity: 0.6; }
+  .product-img { width: 80px; height: 80px; object-fit: cover; background: #f0f0ee; }
+  .product-info { padding-top: 2px; }
+  .product-tag { font-size: 9px; letter-spacing: 0.1em; opacity: 0.5; margin-bottom: 4px; }
+  .product-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; line-height: 1.4; }
+  .product-en { font-size: 10px; opacity: 0.5; font-style: italic; margin-bottom: 6px; }
+  .product-desc { font-size: 11px; opacity: 0.7; line-height: 1.5; }
+
+  /* FOOTER */
+  .footer { border-top: 1px solid #d0d4db; padding-top: 20px; margin-top: 16px; }
+  .footer-brand { font-size: 11px; letter-spacing: 0.2em; margin-bottom: 12px; font-weight: 500; }
+  .footer-row { display: flex; gap: 12px; padding: 5px 0; align-items: flex-start; }
+  .footer-key { font-size: 10px; opacity: 0.4; width: 50px; flex-shrink: 0; padding-top: 1px; }
+  .footer-val { font-size: 10px; opacity: 0.7; line-height: 1.6; }
+  .footer-val a { color: inherit; }
+
+  /* PHILOSOPHY GRID */
+  .phil-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #d0d4db; margin: 16px 0 24px; }
+  .phil-cell { background: #fff; padding: 14px 12px; }
+  .phil-name { font-size: 12px; font-weight: 500; margin-bottom: 4px; }
+  .phil-desc { font-size: 10px; opacity: 0.65; line-height: 1.5; }
 </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <div class="nav">
   <div class="nav-top">
-    <span class="nav-tag">VEGAN BEAUTY SCIENCE</span>
-    <span class="nav-brand">The Pure Lotus</span>
+    <span class="nav-tag">CLEAN & VEGAN BEAUTY</span>
+    <span class="nav-brand">더퓨어로터스</span>
     <span class="nav-spacer"></span>
   </div>
   <div class="cat-scroll" id="catScroll"></div>
 </div>
- 
+
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">HERO PRODUCT · 스킨/에센스</div>
-  <div class="hero-img-wrap">
-    <img class="hero-img" src="loutus.png" alt="Lotus Probiotic Essence" />
-  </div>
-  <div class="hero-name-block">
-    <div class="hero-mini-tag">HERO PRODUCT</div>
-    <div class="hero-name">Lotus Probiotic Essence</div>
-    <div class="hero-desc">Fermented Lotus Complex · Microbiome-Optimized Formula</div>
-  </div>
-  <div class="divider"></div>
-  <div class="metric-row"><span class="metric-label">Regimen Step</span><span class="metric-value">Essence / Toner</span></div>
-  <div class="divider"></div>
-  <div class="metric-row"><span class="metric-label">Format</span><span class="metric-value">Aqueous Gel Serum</span></div>
-  <div class="divider"></div>
-  <div class="metric-row"><span class="metric-label">Targets</span><span class="metric-value">Elasticity · Moisture · Radiance</span></div>
-  <div class="divider"></div>
-  <div class="metric-row"><span class="metric-label">Suited to</span><span class="metric-value">All Skin Types</span></div>
-  <div class="divider"></div>
-  <div class="metric-row"><span class="metric-label">Key Technology</span><span class="metric-value">Lotus Probiotic Complex™</span></div>
-  <div class="divider"></div>
-  <div class="metric-row"><span class="metric-label">Volume</span><span class="metric-value">150 ml<span class="metric-sub">/ 50 ml</span></span></div>
-  <div class="divider"></div>
- 
-  <div class="stats-row">
-    <div class="stat"><div class="stat-v">14+</div><div class="stat-l">Years R&amp;D</div></div>
-    <div class="stat"><div class="stat-v">6M+</div><div class="stat-l">Users</div></div>
-    <div class="stat"><div class="stat-v">38</div><div class="stat-l">Countries</div></div>
-  </div>
+  <div class="hero-tag">CLEAN & VEGAN BEAUTY</div>
+  <h1 class="hero-headline">피부의 평온을 찾다,<br /><em>더퓨어로터스</em></h1>
+  <div class="hero-loc">FROM JEJU ISLAND</div>
+  <p class="hero-quote">
+    <strong>스스로 정화하고, 회복하며 변화하다.</strong><br />
+    흙탕물 속에서도 스스로 피어나는 연꽃처럼,<br />
+    외부 자극 없이도 단단하고 깨끗하게 자라나는 힘은<br />
+    우리 안에도 존재하는 근본의 에너지입니다.
+  </p>
 </div>
- 
-<!-- 01 RESEARCH & PATENTS -->
+
+<!-- 01 OUR MISSION & VISION -->
 <div class="section">
-  <div class="section-hdr"><span class="section-num">01</span><span class="section-title">Research &amp; Patents</span></div>
-  <div class="grid2" id="patentGrid" style="margin-top: 16px; margin-bottom: 4px;"></div>
-  <div class="patent-strip" id="patentStrip"></div>
-  <div style="margin-bottom: 4px;">
-    <div class="pub-label">PUBLISHED RESEARCH</div>
-    <div id="citations"></div>
-  </div>
-  <div class="grid4" style="margin-top: 20px; margin-bottom: 24px;">
-    <div class="cell stat"><div class="stat-v">6</div><div class="stat-l" style="font-size:9px;">Patents</div></div>
-    <div class="cell stat"><div class="stat-v">4</div><div class="stat-l" style="font-size:9px;">Papers</div></div>
-    <div class="cell stat"><div class="stat-v">156</div><div class="stat-l" style="font-size:9px;">Trial n</div></div>
-    <div class="cell stat"><div class="stat-v">8wk</div><div class="stat-l" style="font-size:9px;">Study</div></div>
-  </div>
-</div>
- 
-<!-- 02 CLINICAL EVIDENCE -->
-<div class="section">
-  <div class="section-hdr"><span class="section-num">02</span><span class="section-title">Clinical Evidence</span></div>
-  <div class="clinical-tag">8-WEEK DOUBLE-BLIND RCT · n=156 · p&lt;0.001 · Lotus Probiotic Technology</div>
-  <div class="grid2" style="margin-bottom: 20px;">
-    <div class="ba-img-wrap">
-      <img class="ba-img" src="https://images.unsplash.com/photo-1541752857837-f8a0154fd092?w=500" alt="Baseline" />
-      <div class="ba-label-bar"><span class="ba-label">BASELINE</span></div>
+  <div class="section-hdr"><span class="section-num">01</span><span class="section-title">미션 &amp; 비전</span></div>
+  <div class="section-sub">자연·과학·윤리·지역의 가치를 결합한 K-인디 비건 뷰티 브랜드</div>
+  <div class="mv-grid">
+    <div class="mv-cell">
+      <div class="mv-en">K-INDIE BRANDS</div>
+      <div class="mv-name">로컬 철학을 담은<br />인디 뷰티 브랜드</div>
+      <div class="mv-desc">'제주'의 지역적 희소성과 과학적 효능, 윤리적 가치를 결합하여 글로벌 시장이 요구하는 새로운 'K-인디 브랜드'의 기준을 제시합니다.</div>
     </div>
-    <div class="ba-img-wrap">
-      <img class="ba-img" src="https://images.unsplash.com/photo-1599690901937-81d763397828?w=500" alt="Week 8" />
-      <div class="ba-label-bar"><span class="ba-label">WEEK 8</span></div>
+    <div class="mv-cell">
+      <div class="mv-en">R&D & PROPRIETARY TECH</div>
+      <div class="mv-name">독자 기술 발굴,<br />멈추지 않는 R&amp;D</div>
+      <div class="mv-desc">성분의 효능을 극대화하고 시장을 선도할 수 있는 특허 등 독자적인 기술력을 확보. 피부 깊숙이 연꽃 고유의 풍부한 수분과 영양을 전달합니다.</div>
+    </div>
+    <div class="mv-cell">
+      <div class="mv-en">VEGAN & JEJU NATURE</div>
+      <div class="mv-name">자연에서 얻은<br />높은 품질의 성분</div>
+      <div class="mv-desc">제주의 자연에서 얻은 식물추출 성분으로 안전하고 건강하며, 윤리적 가치를 담은 비건 스킨케어 제품을 만듭니다.</div>
+    </div>
+    <div class="mv-cell">
+      <div class="mv-en">SUSTAINABLE PACKAGING</div>
+      <div class="mv-name">용기 혁신을 통한<br />플라스틱 저감</div>
+      <div class="mv-desc">종이 튜브 사용으로 일반 용기 대비 플라스틱 사용량을 80% 이상 저감하고, FSC 인증 친환경 용지를 사용해 지구와 걸음을 맞춥니다.</div>
     </div>
   </div>
-  <div id="clinicalMetrics"></div>
-  <div style="margin-top: 24px; margin-bottom: 24px;">
-    <div class="pub-label">ACTIVE INGREDIENT PROFILE</div>
-    <div class="ing-table">
-      <div class="ing-head">
-        <span>INCI NAME</span><span>CONC.</span><span>FUNCTION</span>
+</div>
+
+<!-- 02 BRAND PORTFOLIO -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">02</span><span class="section-title">브랜드 라인업</span></div>
+  <div class="section-sub">3개 브랜드, 하나의 철학 — 제주에서 시작되는 클린 비건 뷰티</div>
+
+  <div class="brand-block">
+    <div class="brand-name">제주 보태니컬</div>
+    <div class="brand-en">Jeju Botanical</div>
+    <div class="brand-desc">청정지역 제주에서 자란 9가지 식물(연꽃잎, 알로에베라잎, 녹차, 쌀, 귤껍질, 로즈마리잎, 연꽃뿌리, 코치닐선인장열매)에서 추출한 복합 추출물.</div>
+    <div class="brand-patent">
+      <span class="brand-patent-num">특허 제10-2296348호</span> · 연꽃추출물 또는 예덕나무 추출물을 이용한 항염증·항알러지·항산화용 조성물
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="brand-block">
+    <div class="brand-name">유스바이오틱스 — 연꽃 발효</div>
+    <div class="brand-en">YOUTHBIOTICS · Lotus Fermentation</div>
+    <div class="brand-desc">168시간, 7일간의 발효로 얻은 연꽃잎 추출물. 입자 크기가 작아 일반 화장품보다 흡수가 훨씬 용이하며, 항염·보습 효과가 강화됩니다.</div>
+    <div class="brand-patent">
+      <span class="brand-patent-num">특허 10-2021-0151707 (출원)</span> · 연잎 발효물을 이용한 피부 보습용 조성물<br />
+      <span class="brand-patent-num">특허 10-2021-0151708 (출원)</span> · 연잎 발효물을 이용한 피부 항염증용 조성물
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="brand-block">
+    <div class="brand-name">비체스킨 — 식물 줄기체 배양</div>
+    <div class="brand-en">vicheskin · Vegan Cell</div>
+    <div class="brand-desc">식물세포 추출 기능을 통해 해당화를 기내 배양해 피부 건강은 물론 윤리적 소비까지 지속가능합니다.</div>
+    <div class="brand-patent">
+      <span class="brand-patent-num">특허 10-2022-0075929 (출원)</span> · 해당화 인공 배양 식물체 추출물을 이용한 주름 개선용 조성물
+    </div>
+  </div>
+</div>
+
+<!-- 03 R&D · 특허 -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">03</span><span class="section-title">독자 기술 R&amp;D</span></div>
+  <div class="section-sub">특허 6건 보유 · 국제화장품원료집(INCI) 등재 · 우수 논문상 수상</div>
+
+  <div class="highlight">
+    <div class="highlight-tag">대표 특허 · INCI 등재</div>
+    <div class="highlight-title">연꽃추출물·예덕나무 추출물 조성물</div>
+    <div class="highlight-num">특허 제10-2357619호</div>
+    <div class="highlight-desc">항염증·항알러지·항산화용 조성물로 국제화장품원료집(INCI) 등재 및 우수 논문상 수상</div>
+  </div>
+
+  <div class="patent-grid">
+    <div class="patent">
+      <div class="patent-cat">항염·항산화</div>
+      <div class="patent-id">제10-2296348호</div>
+      <div class="patent-title">연꽃·예덕나무 추출물을 이용한 항염증·항알러지·항산화용 조성물</div>
+      <div class="patent-status">등록</div>
+    </div>
+    <div class="patent">
+      <div class="patent-cat">발효 보습</div>
+      <div class="patent-id">10-2021-0151707</div>
+      <div class="patent-title">연잎 발효물을 이용한 피부 보습용 조성물</div>
+      <div class="patent-status">출원</div>
+    </div>
+    <div class="patent">
+      <div class="patent-cat">발효 항염증</div>
+      <div class="patent-id">10-2021-0151708</div>
+      <div class="patent-title">연잎 발효물을 이용한 피부 항염증용 조성물</div>
+      <div class="patent-status">출원</div>
+    </div>
+    <div class="patent">
+      <div class="patent-cat">주름 개선</div>
+      <div class="patent-id">10-2022-0075929</div>
+      <div class="patent-title">해당화 인공 배양 식물체 추출물을 이용한 주름 개선용 조성물</div>
+      <div class="patent-status">출원</div>
+    </div>
+    <div class="patent">
+      <div class="patent-cat">미백</div>
+      <div class="patent-id">제10-1181998호</div>
+      <div class="patent-title">참다래 잎 추출물을 이용한 피부 미백제 조성물</div>
+      <div class="patent-status">등록</div>
+    </div>
+    <div class="patent">
+      <div class="patent-cat">항산화·항암</div>
+      <div class="patent-id">제10-0997674호</div>
+      <div class="patent-title">붉가시나무 추출물을 유효성분으로 함유하는 항산화 및 항암용 조성물</div>
+      <div class="patent-status">등록</div>
+    </div>
+  </div>
+
+  <div class="grid3" style="margin-top: 20px; margin-bottom: 24px;">
+    <div class="stat"><div class="stat-v">6+</div><div class="stat-l">특허 보유·출원</div></div>
+    <div class="stat"><div class="stat-v">INCI</div><div class="stat-l">국제 원료집 등재</div></div>
+    <div class="stat"><div class="stat-v">9종</div><div class="stat-l">제주 식물 추출</div></div>
+  </div>
+</div>
+
+<!-- 04 임상 시험 -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">04</span><span class="section-title">임상 시험 결과</span></div>
+  <div class="section-sub">P&amp;K 피부임상연구센터 · 세명대학교 화장품 임상연구지원센터</div>
+
+  <div class="clinical">
+    <div class="clinical-top">
+      <div>
+        <div class="clinical-name">피부 수분 함유량</div>
+        <div class="clinical-product">유스바이오틱스 연꽃발효 컨센트레이트 · 4주</div>
       </div>
-      <div id="ingredients"></div>
+      <div style="text-align: right;">
+        <div class="clinical-val">114%</div>
+        <div class="clinical-delta">개선</div>
+      </div>
+    </div>
+    <div class="clinical-bar"><div class="clinical-fill" style="width: 100%"></div></div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="clinical">
+    <div class="clinical-top">
+      <div>
+        <div class="clinical-name">눈가 주름 개선</div>
+        <div class="clinical-product">유스바이오틱스 연꽃발효 컨센트레이트 · 4주</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="clinical-val">115%</div>
+        <div class="clinical-delta">개선</div>
+      </div>
+    </div>
+    <div class="clinical-bar"><div class="clinical-fill" style="width: 100%"></div></div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="clinical">
+    <div class="clinical-top">
+      <div>
+        <div class="clinical-name">마스크 자국 복원력</div>
+        <div class="clinical-product">유스바이오틱스 연꽃발효 컨센트레이트 · 10시간 착용 후</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="clinical-val">114%</div>
+        <div class="clinical-delta">개선</div>
+      </div>
+    </div>
+    <div class="clinical-bar"><div class="clinical-fill" style="width: 100%"></div></div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="clinical">
+    <div class="clinical-top">
+      <div>
+        <div class="clinical-name">피부 탄력 개선</div>
+        <div class="clinical-product">제주 연꽃잎 리바이탈라이징 크림 · 4주</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="clinical-val">21.7%</div>
+        <div class="clinical-delta">개선</div>
+      </div>
+    </div>
+    <div class="clinical-bar"><div class="clinical-fill" style="width: 22%"></div></div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="clinical">
+    <div class="clinical-top">
+      <div>
+        <div class="clinical-name">모발 손상도 개선</div>
+        <div class="clinical-product">제주 보태니컬 탈모샴푸 · 2주</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="clinical-val">13.61%</div>
+        <div class="clinical-delta">감소</div>
+      </div>
+    </div>
+    <div class="clinical-bar"><div class="clinical-fill" style="width: 14%"></div></div>
+  </div>
+
+  <div style="margin-top: 24px; margin-bottom: 24px;">
+    <div class="section-sub" style="margin: 0 0 12px;">제주 보태니컬 pH 밸런싱 클렌저 · 세정력 임상</div>
+    <div class="grid3">
+      <div class="stat"><div class="stat-v">99.9%</div><div class="stat-l">메이크업 세정력</div></div>
+      <div class="stat"><div class="stat-v">98.2%</div><div class="stat-l">미세먼지 세정력</div></div>
+      <div class="stat"><div class="stat-v">97%</div><div class="stat-l">모공 노폐물 세정력</div></div>
+    </div>
+    <div style="font-size: 9px; opacity: 0.4; margin-top: 8px; line-height: 1.5;">
+      * P&amp;K 피부임상연구센터 / 2022.02.18 / 성인 20명 자체 테스트, 개인차 있음
     </div>
   </div>
 </div>
- 
-<!-- 03 RECOGNITION -->
+
+<!-- 05 수상 내역 -->
 <div class="section">
-  <div class="section-hdr"><span class="section-num">03</span><span class="section-title">Recognition</span></div>
-  <div class="clinical-tag">12 INTERNATIONAL AWARDS &amp; CERTIFICATIONS · 2023–2026</div>
-  <div id="awards"></div>
-  <div style="margin-top: 20px; margin-bottom: 24px;">
-    <div class="pub-label">ACTIVE CERTIFICATIONS</div>
-    <div class="cert-list" id="certs"></div>
+  <div class="section-hdr"><span class="section-num">05</span><span class="section-title">국내외 수상 기록</span></div>
+  <div class="section-sub">국내 8건 · 해외 4건 — 정부 기관 표창 및 글로벌 뷰티 어워드</div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">USA Best of K-Beauty Awards</div>
+      <div class="award-org">Peach &amp; Lily — The Biggest K-Beauty Online Shop</div>
+    </div>
+    <div class="award-year">2019</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">Best Beauty Buys WINNER</div>
+      <div class="award-org">싱가포르 Women's Weekly</div>
+      <div class="award-product">Cleanser 부문</div>
+    </div>
+    <div class="award-year">2020</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">Best Beauty Buys WINNER</div>
+      <div class="award-org">싱가포르 Women's Weekly</div>
+      <div class="award-product">Eye Cream / Best Sunscreen Editor's Choice</div>
+    </div>
+    <div class="award-year">2021</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">2021 BRAND K AWARDS</div>
+      <div class="award-org">중소벤처기업부</div>
+      <div class="award-product">Lotus Probiotic Concentrate</div>
+    </div>
+    <div class="award-year">2021</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">백만불 수출의 탑 표창장</div>
+      <div class="award-org">산업통상자원부 (Ministry of Trade)</div>
+    </div>
+    <div class="award-year">2021</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">Beauty &amp; Wellness WINNER</div>
+      <div class="award-org">싱가포르 Beauty Insider</div>
+      <div class="award-product">Calming Serum</div>
+    </div>
+    <div class="award-year">2022</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">2022 제주 경제대상</div>
+      <div class="award-org">제주특별자치도</div>
+    </div>
+    <div class="award-year">2022</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">중소기업중앙회 표창장</div>
+      <div class="award-org">KBIZ 중소기업중앙회</div>
+    </div>
+    <div class="award-year">2022</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">수출 우수상</div>
+      <div class="award-org">제주특별자치도</div>
+    </div>
+    <div class="award-year">2022</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">글로벌 강소기업 지정</div>
+      <div class="award-org">중소벤처기업부</div>
+    </div>
+    <div class="award-year">2022</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="award-row">
+    <div>
+      <div class="award-name">성분 유튜버 디렉터파이 TOP OF TOP</div>
+      <div class="award-org">디렉터파이 추천</div>
+    </div>
+    <div class="award-year">—</div>
+  </div>
+
+  <div style="margin-top: 24px; margin-bottom: 24px;">
+    <div class="section-sub" style="margin: 0 0 12px;">주요 인증</div>
+    <div class="cert-list">
+      <span class="cert">Vegan</span>
+      <span class="cert">ISO</span>
+      <span class="cert">CGMP</span>
+      <span class="cert">Cosmetic Cert Jeju</span>
+      <span class="cert">CPNP (EU)</span>
+      <span class="cert">Beauty of Jeju Stars</span>
+    </div>
   </div>
 </div>
- 
-<!-- 04 GLOBAL PRESENCE -->
+
+<!-- 06 매거진 게재 -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">06</span><span class="section-title">국내외 매거진</span></div>
+  <div class="section-sub">ELLE · COSMOPOLITAN · ALLURE · SINGLES · 기내 매거진(HK Express, GBA)</div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Lotus Leaf Essence</div>
+      <div class="mag-mag">COSMOPOLITAN</div>
+    </div>
+    <div class="mag-date">2021.05</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Lotus Leaf Essence</div>
+      <div class="mag-mag">ALLURE</div>
+    </div>
+    <div class="mag-date">2021.09</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Jeju Botanical pH Balancing Cleanser</div>
+      <div class="mag-mag">SINGLES</div>
+    </div>
+    <div class="mag-date">2021.11</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Lotus Probiotic Concentrate</div>
+      <div class="mag-mag">COSMOPOLITAN</div>
+    </div>
+    <div class="mag-date">2022.06</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">YOUTHBIOTICS Set</div>
+      <div class="mag-mag">ALLURE</div>
+    </div>
+    <div class="mag-date">2022.06</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">vicheskin Cell Ampoule</div>
+      <div class="mag-mag">COSMOPOLITAN</div>
+    </div>
+    <div class="mag-date">2022.08</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">vicheskin Cell Ampoule</div>
+      <div class="mag-mag">ALLURE</div>
+    </div>
+    <div class="mag-date">2022.09</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">YOUTHBIOTICS Set</div>
+      <div class="mag-mag">ELLE</div>
+    </div>
+    <div class="mag-date">2022.12</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Jeju Botanical pH Balancing Cleanser</div>
+      <div class="mag-mag">ELLE</div>
+    </div>
+    <div class="mag-date">2023.08</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Lotus Probiotic Concentrate</div>
+      <div class="mag-mag">HK EXPRESS 기내 매거진</div>
+    </div>
+    <div class="mag-date">2024~</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">YOUTHBIOTICS Set</div>
+      <div class="mag-mag">ELLE</div>
+    </div>
+    <div class="mag-date">2025.02</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Jeju Botanical pH Balancing Cleanser</div>
+      <div class="mag-mag">COSMOPOLITAN</div>
+    </div>
+    <div class="mag-date">2025.02</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="mag-row">
+    <div>
+      <div class="mag-product">Jeju Botanical Sunscreen</div>
+      <div class="mag-mag">GBA 기내 매거진</div>
+    </div>
+    <div class="mag-date">2025~</div>
+  </div>
+
+  <div style="height: 24px;"></div>
+</div>
+
+<!-- 07 입점 매장 -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">07</span><span class="section-title">국내외 입점 매장</span></div>
+  <div class="section-sub">면세점 · 백화점 · 골프&amp;스파 · 글로벌 리테일 파트너</div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">제주 JDC &amp; JTO 면세점</div>
+      <div class="store-cat">면세점</div>
+    </div>
+    <div class="store-flag">KOR</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">인천공항 판판 면세점</div>
+      <div class="store-cat">면세점</div>
+    </div>
+    <div class="store-flag">KOR</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">신세계 백화점</div>
+      <div class="store-cat">백화점</div>
+    </div>
+    <div class="store-flag">KOR</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">대구 백화점 (Goods Fatale)</div>
+      <div class="store-cat">백화점 편집샵</div>
+    </div>
+    <div class="store-flag">KOR</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">양재 하나로마트</div>
+      <div class="store-cat">대형 마트</div>
+    </div>
+    <div class="store-flag">KOR</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">핀크스 골프 &amp; 디아넥스 스파</div>
+      <div class="store-cat">럭셔리 리조트</div>
+    </div>
+    <div class="store-flag">KOR</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">이제주숍</div>
+      <div class="store-cat">제주 특화 편집샵</div>
+    </div>
+    <div class="store-flag">KOR</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">Gold Apple</div>
+      <div class="store-cat">러시아 뷰티 체인</div>
+    </div>
+    <div class="store-flag">RUS</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">Gold Apple</div>
+      <div class="store-cat">카자흐스탄 뷰티 체인</div>
+    </div>
+    <div class="store-flag">KAZ</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">상해 편집샵</div>
+      <div class="store-cat">중국 K-뷰티 편집샵</div>
+    </div>
+    <div class="store-flag">CHN</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">Holland &amp; Barrett</div>
+      <div class="store-cat">키프로스 자연주의 헬스 체인</div>
+    </div>
+    <div class="store-flag">CYP</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="store">
+    <div>
+      <div class="store-name">Korea Town 부티카</div>
+      <div class="store-cat">해외 K-뷰티 부티크</div>
+    </div>
+    <div class="store-flag">INT'L</div>
+  </div>
+
+  <div style="height: 24px;"></div>
+</div>
+
+<!-- 08 베스트셀러 -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">08</span><span class="section-title">베스트셀러 라인업</span></div>
+  <div class="section-sub">유스바이오틱스 · 제주 보태니컬 · 제주 연꽃잎 · 비체스킨</div>
+
+  <div class="brand-block" style="padding-top: 8px;">
+    <div class="brand-name">유스바이오틱스 (연꽃 발효 라인)</div>
+    <div class="brand-en">YOUTHBIOTICS · Lotus Fermentation</div>
+
+    <div style="margin-top: 12px;">
+      <div class="product-card" style="border-bottom: 1px solid #e8e8e6;">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">BESTSELLER</div>
+          <div class="product-name">연꽃발효 컨센트레이트</div>
+          <div class="product-en">Lotus Probiotic Concentrate · 80ml</div>
+          <div class="product-desc">성분 유튜버 선정 속건조 안녕 에센스. 임상 완료(탄력·수분·주름·복원력 개선), 우유 대비 10배 칼슘 함유.</div>
+        </div>
+      </div>
+      <div class="product-card" style="border-bottom: 1px solid #e8e8e6;">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">기능성</div>
+          <div class="product-name">연꽃발효 토너</div>
+          <div class="product-en">Lotus Probiotic Toner · 200ml</div>
+          <div class="product-desc">AHA·LHA 함유로 매끈한 피부결, 8종 프로바이오틱스 &amp; 카밍 컴플렉스, 강력한 수분 보습막.</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">기능성</div>
+          <div class="product-name">연꽃발효 컨센트레이트 크림</div>
+          <div class="product-en">Lotus Probiotic Concentrate Cream · 50ml</div>
+          <div class="product-desc">연꽃잎 슬로우에이징 고보습 크림. 밀착 보습막, 저분자 발효 입자가 피부 깊숙이 흡수.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="brand-block">
+    <div class="brand-name">제주 보태니컬 라인</div>
+    <div class="brand-en">Jeju Botanical</div>
+    <div style="margin-top: 12px;">
+      <div class="product-card" style="border-bottom: 1px solid #e8e8e6;">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">BESTSELLER</div>
+          <div class="product-name">제주 보태니컬 pH 밸런싱 클렌저</div>
+          <div class="product-en">Jeju Botanical pH Balancing Cleanser · 200ml</div>
+          <div class="product-desc">세정력·거품·보습까지 챙긴 저자극 인생 클렌저. pH 5.0~6.0 미산성, 수분유지력 99.4%.</div>
+        </div>
+      </div>
+      <div class="product-card" style="border-bottom: 1px solid #e8e8e6;">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">SPF50+ PA++++</div>
+          <div class="product-name">제주 보태니컬 하이드로부스트 선스크린</div>
+          <div class="product-en">Jeju Botanical Hydro Boost Sunscreen · 50ml</div>
+          <div class="product-desc">자극 없는 유기자차 자외선 차단제. 백탁·번들거림·뭉침 NO. 산호초 보호 처방.</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">SPF50+ PA++++</div>
+          <div class="product-name">제주 보태니컬 데일리톤업 선스크린</div>
+          <div class="product-en">Jeju Botanical Daily Toneup Sunscreen · 50ml</div>
+          <div class="product-desc">핑크톤업으로 밝고 화사하게. 인위적이지 않은 자연스러운 톤업.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="brand-block">
+    <div class="brand-name">제주 연꽃잎 라인</div>
+    <div class="brand-en">Jeju Lotus Leaf</div>
+    <div style="margin-top: 12px;">
+      <div class="product-card" style="border-bottom: 1px solid #e8e8e6;">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">탄력 +21.7%</div>
+          <div class="product-name">제주 연꽃잎 리바이탈라이징 크림</div>
+          <div class="product-en">Jeju Lotus Leaf Revitalizing Cream · 50ml</div>
+          <div class="product-desc">단 4주 만에 피부 탄력 21.7% 개선. 베타인 함유 보습막, 아데노신으로 주름 개선.</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">미백·주름 기능성</div>
+          <div class="product-name">제주 연꽃잎 에센스 &amp; 로션</div>
+          <div class="product-en">Jeju Lotus Leaf Essence &amp; Lotion · 125ml</div>
+          <div class="product-desc">정제수 대신 연꽃잎 추출물 함유. 나이아신아마이드 &amp; 아데노신 주름 개선·미백 도움.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="brand-block">
+    <div class="brand-name">비체스킨 — 비건 셀 라인</div>
+    <div class="brand-en">vicheskin · Vegan Cell Line</div>
+    <div style="margin-top: 12px;">
+      <div class="product-card" style="border-bottom: 1px solid #e8e8e6;">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">재생</div>
+          <div class="product-name">시카 셀 앰플 / 크림</div>
+          <div class="product-en">Cica Cell Ampoule &amp; Cream · 35ml / 50ml</div>
+          <div class="product-desc">병풀추출물 76% 함유, 판테놀 함유. 수분손실량 52% 감소, 붉은기 40% 감소.</div>
+        </div>
+      </div>
+      <div class="product-card" style="border-bottom: 1px solid #e8e8e6;">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">주름</div>
+          <div class="product-name">링클 리페어 셀 앰플 / 크림</div>
+          <div class="product-en">Wrinkle Repair Cell Ampoule &amp; Cream · 35ml / 50ml</div>
+          <div class="product-desc">프로폴리스·펩타이드 함유. 수분 119%, 탄력 105%, 안면 리프팅 103%, 눈가주름 106% 개선.</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img" style="display:flex; align-items:center; justify-content:center; font-size:9px; opacity:0.4;">PRODUCT</div>
+        <div class="product-info">
+          <div class="product-tag">미백·진정</div>
+          <div class="product-name">카밍 글로우 셀 앰플 / 크림</div>
+          <div class="product-en">Calming Glow Cell Ampoule &amp; Cream · 35ml / 50ml</div>
+          <div class="product-desc">글루타티온 &amp; 닥나무껍질추출물 함유. 피부 밝기 102% 개선, 멜라닌 102% 감소.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 24px;"></div>
+</div>
+
+<!-- 09 연꽃 철학 -->
+<div class="section">
+  <div class="section-hdr"><span class="section-num">09</span><span class="section-title">연꽃이 주는 메세지</span></div>
+  <div class="section-sub">진흙탕 속에서도 피어나는 연꽃의 6가지 덕목</div>
+  <div class="phil-grid">
+    <div class="phil-cell">
+      <div class="phil-name">이제염오</div>
+      <div class="phil-desc">진흙탕에서도 꽃을 피우다. 연꽃은 진흙탕에서 자라지만 진흙에 물들지 않는다.</div>
+    </div>
+    <div class="phil-cell">
+      <div class="phil-name">계향충만</div>
+      <div class="phil-desc">그윽한 향을 품어 사회를 정화한다. 한 송이 연꽃이 진흙탕의 연못을 향기로 채운다.</div>
+    </div>
+    <div class="phil-cell">
+      <div class="phil-name">본제청정</div>
+      <div class="phil-desc">어떤 곳에 거해도 푸르고 맑은 청정함을 잃지 않는다.</div>
+    </div>
+    <div class="phil-cell">
+      <div class="phil-name">유연불삽</div>
+      <div class="phil-desc">부드럽고 유연한 사람은 바람이나 충격에 부러지지 않는다.</div>
+    </div>
+    <div class="phil-cell">
+      <div class="phil-name">성숙청정</div>
+      <div class="phil-desc">활짝 핀 연꽃을 보면 맑아지고 포근해짐을 느낀다.</div>
+    </div>
+    <div class="phil-cell">
+      <div class="phil-name">견자개길</div>
+      <div class="phil-desc">연꽃을 꿈에 보면 길하다고 한다. 보거나 지니면 좋은 일이 생긴다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <div class="section" style="padding-bottom: 40px;">
-  <div class="section-hdr"><span class="section-num">04</span><span class="section-title">Global Presence</span></div>
-  <div class="clinical-tag">270+ RETAIL TOUCHPOINTS · 38 COUNTRIES · 4 CONTINENTS</div>
-  <div class="grid3" id="storeGrid" style="margin-bottom: 20px;"></div>
-  <div class="grid4" style="margin-bottom: 20px;">
-    <div class="cell stat"><div class="stat-v">38</div><div class="stat-l" style="font-size:9px;">Duty-Free</div></div>
-    <div class="cell stat"><div class="stat-v">142</div><div class="stat-l" style="font-size:9px;">Department</div></div>
-    <div class="cell stat"><div class="stat-v">89</div><div class="stat-l" style="font-size:9px;">Flagship</div></div>
-    <div class="cell stat"><div class="stat-v">520+</div><div class="stat-l" style="font-size:9px;">Partners</div></div>
-  </div>
-  <div style="margin-bottom: 20px;">
-    <div class="pub-label">REGIONAL DISTRIBUTION</div>
-    <div id="regions"></div>
-  </div>
   <div class="footer">
-    <div class="footer-brand">THE PURE LOTUS CO., LTD.</div>
-    <div class="footer-row"><span class="footer-key">HQ</span><span class="footer-val">Gangnam-daero, Gangnam-gu, Seoul 06524, Korea</span></div>
-    <div class="footer-row"><span class="footer-key">R&amp;D</span><span class="footer-val">Sejong Science Complex, Building 7F</span></div>
-    <div class="footer-row"><span class="footer-key">Mfg.</span><span class="footer-val">GMP-certified, Chungcheongbuk-do</span></div>
-    <div class="footer-row"><span class="footer-key">Tel</span><span class="footer-val">+82-2-1234-5678</span></div>
-    <div class="footer-row"><span class="footer-key">Email</span><span class="footer-val">science@purelotus.com</span></div>
+    <div class="footer-brand">더로터스(주) · THE PURE LOTUS CO., LTD.</div>
+    <div class="footer-row"><span class="footer-key">본사</span><span class="footer-val">제주특별자치도 제주시 첨단로 8길 40<br />제주산학융합원 기업연구관 307호</span></div>
+    <div class="footer-row"><span class="footer-key">사무실</span><span class="footer-val">제주특별자치도 제주시 첨단로 213-3<br />JDC스마트빌딩 417호</span></div>
+    <div class="footer-row"><span class="footer-key">웹사이트</span><span class="footer-val">www.thepurelotus.com (KOR)<br />www.thepurelotususa.com (Global)</span></div>
+    <div class="footer-row"><span class="footer-key">인스타</span><span class="footer-val">@thepurelotus (KOR)<br />@thepurelotus_global (Global)</span></div>
+    <div class="footer-row"><span class="footer-key">아마존</span><span class="footer-val">Amazon US 공식 입점</span></div>
+    <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e8e8e6; font-size: 9px; opacity: 0.4; line-height: 1.6;">
+      본 페이지는 더퓨어로터스 공식 제안서(2026 ver.)를 바탕으로 제작된 브랜드 소개 페이지입니다.
+    </div>
   </div>
 </div>
- 
+
 <script>
-  const patentData = [
-    { id: 'KR 10-2156348', title: 'Probiotic Fermentation Complex', year: '2021', efficacy: 87, category: 'Biotechnology' },
-    { id: 'KR 10-2021-0132727', title: 'Lotus Ceramide Extraction', year: '2022', efficacy: 92, category: 'Extraction Tech' },
-    { id: 'KR 10-2018-0089423', title: 'Micro-encapsulation System', year: '2019', efficacy: 78, category: 'Delivery System' },
-    { id: 'KR 10-2020-0145892', title: 'Hyaluronic Crosslink Formula', year: '2021', efficacy: 95, category: 'Formulation' },
-    { id: 'KR 10-2019-0098234', title: 'pH-Buffered Vegan Base', year: '2020', efficacy: 83, category: 'Base Chemistry' },
-    { id: 'KR 10-2022-0067451', title: 'Adenosine Stabilization', year: '2023', efficacy: 89, category: 'Preservation' },
-  ];
-  const citations = [
-    { authors: 'Kim, J. et al.', year: '2023', journal: 'J. Cosmetic Dermatology', vol: '22(4)', pp: '1247–1256', title: 'Probiotic skin barrier restoration via topical application of fermented Lotus extracts' },
-    { authors: 'Park, S. & Lee, H.', year: '2024', journal: 'Int. J. Molecular Sciences', vol: '15(3)', pp: '892–904', title: 'Molecular pathways in ceramide-mediated transepidermal water loss reduction' },
-    { authors: 'Choi, M. et al.', year: '2023', journal: 'Biotechnology Letters', vol: '45(7)', pp: '1134–1142', title: 'Fermentation-derived bioactives and their epigenetic skin-aging mechanisms' },
-    { authors: 'Jung, Y. & Kim, B.', year: '2024', journal: 'Skin Research & Technology', vol: '30(2)', pp: 'e13598', title: 'Double-blind RCT: Lotus Probiotic complex on elasticity and moisture retention' },
-  ];
-  const clinicalMetrics = [
-    { label: 'Skin Elasticity', value: 114, delta: '+14%', period: '8 weeks', n: 156, p: '< 0.001' },
-    { label: 'Moisture Retention', value: 115, delta: '+15%', period: '8 weeks', n: 156, p: '< 0.001' },
-    { label: 'Skin Firmness', value: 108, delta: '+8%', period: '8 weeks', n: 156, p: '< 0.005' },
-    { label: 'Radiance Index', value: 121, delta: '+21%', period: '8 weeks', n: 156, p: '< 0.001' },
-  ];
-  const ingredients = [
-    { name: 'Lotus Probiotic Complex™', conc: 'Proprietary', fn: 'Microbiome balancing' },
-    { name: 'Sodium Hyaluronate', conc: '3.0%', fn: 'Deep hydration' },
-    { name: 'Niacinamide', conc: '5.0%', fn: 'Barrier reinforcement' },
-    { name: 'Multi-Peptide Blend', conc: '7 types', fn: 'Collagen synthesis' },
-    { name: 'Ceramide NP', conc: '1.5%', fn: 'Lipid barrier repair' },
-    { name: 'Adenosine', conc: '0.04%', fn: 'Anti-aging regulation' },
-  ];
-  const awards = [
-    { name: 'Best Beauty Buys', org: 'Korea Health & Beauty', year: '2025' },
-    { name: 'Ministry of Trade Commendation', org: 'MOTIE Korea', year: '2024' },
-    { name: 'Global Small Giant', org: 'Ministry of SMEs', year: '2024' },
-    { name: 'K-Beauty Excellence', org: 'KCII', year: '2025' },
-    { name: 'Vegan Innovation Award', org: 'The Vegan Society', year: '2024' },
-    { name: 'Clean Beauty Certified', org: 'EWG', year: '2025' },
-    { name: 'Dermatology Tested Seal', org: 'SDDL', year: '2024' },
-    { name: "Women's Health Best Pick", org: "Women's Health KR", year: '2025' },
-    { name: 'Elle Beauty Award', org: 'Elle Korea', year: '2024' },
-    { name: 'Allure Breakthrough', org: 'Allure Magazine', year: '2025' },
-    { name: 'GMP Certified', org: 'MFDS Korea', year: '2023' },
-    { name: 'COSMOS Certified', org: 'Ecocert', year: '2023' },
-  ];
-  const certifications = ['Vegan Society', 'Cruelty-Free', 'HALAL', 'GMP MFDS', 'COSMOS', 'PETA', 'REACH', 'ISO 22716'];
-  const storeLocations = [
-    { name: 'JDC Duty-Free', city: 'Jeju', country: 'Korea', img: 'https://images.unsplash.com/photo-1777137746948-ffeb0e37d00a?w=400' },
-    { name: 'Shinsegae Gangnam', city: 'Seoul', country: 'Korea', img: 'https://images.unsplash.com/photo-1590598688007-0f4f11c50f95?w=400' },
-    { name: 'Lotte Department', city: 'Seoul', country: 'Korea', img: 'https://images.unsplash.com/photo-1760020954071-13a2c86076ff?w=400' },
-    { name: 'Moscow Flagship', city: 'Moscow', country: 'Russia', img: 'https://images.unsplash.com/photo-1572896643986-33722ecf2097?w=400' },
-    { name: 'Shanghai Boutique', city: 'Shanghai', country: 'China', img: 'https://images.unsplash.com/photo-1723173330015-3e8eb2bb3333?w=400' },
-    { name: 'Beijing Plaza', city: 'Beijing', country: 'China', img: 'https://images.unsplash.com/photo-1590598688007-0f4f11c50f95?w=400' },
-    { name: 'Hong Kong IFC', city: 'Hong Kong', country: 'HK', img: 'https://images.unsplash.com/photo-1723173330015-3e8eb2bb3333?w=400' },
-    { name: 'Tokyo Shibuya', city: 'Tokyo', country: 'Japan', img: 'https://images.unsplash.com/photo-1777137746948-ffeb0e37d00a?w=400' },
-    { name: 'Singapore Marina', city: 'Singapore', country: 'SG', img: 'https://images.unsplash.com/photo-1760020954071-13a2c86076ff?w=400' },
-    { name: 'Dubai Mall', city: 'Dubai', country: 'UAE', img: 'https://images.unsplash.com/photo-1572896643986-33722ecf2097?w=400' },
-    { name: 'London Harrods', city: 'London', country: 'UK', img: 'https://images.unsplash.com/photo-1723173330015-3e8eb2bb3333?w=400' },
-    { name: 'Paris Le Marais', city: 'Paris', country: 'France', img: 'https://images.unsplash.com/photo-1590598688007-0f4f11c50f95?w=400' },
-  ];
-  const regionalData = [
-    { region: 'Asia-Pacific', pct: 68, stores: 183 },
-    { region: 'Middle East', pct: 18, stores: 49 },
-    { region: 'Europe', pct: 10, stores: 27 },
-    { region: 'Americas', pct: 4, stores: 11 },
-  ];
- 
   // Categories
-  const categories = ['올 프로덕츠', '스킨/에센스', '크림', '클렌져', '선스크린', '세럼', '마스크'];
-  let activeCat = '스킨/에센스';
+  const categories = ['전체', '브랜드', 'R&D', '임상시험', '수상', '매거진', '매장', '제품'];
+  let activeCat = '전체';
   const catScroll = document.getElementById('catScroll');
   function renderCats() {
     catScroll.innerHTML = '';
@@ -343,110 +955,6 @@
     });
   }
   renderCats();
- 
-  // Patent grid
-  document.getElementById('patentGrid').innerHTML = patentData.map(p => `
-    <div class="cell patent">
-      <div class="patent-cat">${p.category.toUpperCase()}</div>
-      <div class="patent-id">${p.id}</div>
-      <div class="patent-title">${p.title}</div>
-      <div class="efficacy-row">
-        <div class="efficacy-bar"><div class="efficacy-fill" style="width:${p.efficacy}%"></div></div>
-        <span class="efficacy-pct">${p.efficacy}%</span>
-      </div>
-      <div class="patent-year">${p.year} · Efficacy Index</div>
-    </div>
-  `).join('');
- 
-  // Patent strip
-  document.getElementById('patentStrip').innerHTML = patentData.map(p => `<span>${p.id}</span>`).join('');
- 
-  // Citations
-  document.getElementById('citations').innerHTML = citations.map((c, i) => `
-    <div>
-      <div class="citation">
-        <div class="citation-text"><span class="citation-num">[${i+1}] </span>${c.authors} (${c.year}). <em>${c.title.substring(0,60)}…</em></div>
-        <div class="citation-journal">${c.journal}, ${c.vol}, ${c.pp}</div>
-      </div>
-      ${i < citations.length-1 ? '<div class="divider"></div>' : ''}
-    </div>
-  `).join('');
- 
-  // Clinical metrics
-  document.getElementById('clinicalMetrics').innerHTML = clinicalMetrics.map((m, i) => `
-    <div>
-      <div class="clinical">
-        <div class="clinical-top">
-          <div>
-            <div class="clinical-name">${m.label}</div>
-            <div class="clinical-meta">n=${m.n} · p${m.p} · ${m.period}</div>
-          </div>
-          <div style="text-align:right;">
-            <div class="clinical-val">${m.value}%</div>
-            <div class="clinical-delta">${m.delta} vs. baseline</div>
-          </div>
-        </div>
-        <div class="clinical-bar"><div class="clinical-fill" style="width:${m.value}%"></div></div>
-        <div class="clinical-axis"><span>0%</span><span>Baseline 100%</span></div>
-      </div>
-      ${i < clinicalMetrics.length-1 ? '<div class="divider"></div>' : ''}
-    </div>
-  `).join('');
- 
-  // Ingredients
-  document.getElementById('ingredients').innerHTML = ingredients.map(ing => `
-    <div class="divider"></div>
-    <div class="ing-row">
-      <span class="ing-name">${ing.name}</span>
-      <span class="ing-conc">${ing.conc}</span>
-      <span class="ing-fn">${ing.fn}</span>
-    </div>
-  `).join('');
- 
-  // Awards
-  document.getElementById('awards').innerHTML = awards.map((a, i) => `
-    <div>
-      <div class="award-row">
-        <div>
-          <div class="award-name">${a.name}</div>
-          <div class="award-org">${a.org}</div>
-        </div>
-        <div class="award-year">${a.year}</div>
-      </div>
-      ${i < awards.length-1 ? '<div class="divider"></div>' : ''}
-    </div>
-  `).join('');
- 
-  // Certifications
-  document.getElementById('certs').innerHTML = certifications.map(c => `<span class="cert">${c}</span>`).join('');
- 
-  // Stores
-  document.getElementById('storeGrid').innerHTML = storeLocations.map(loc => `
-    <div class="store">
-      <img src="${loc.img}" alt="${loc.name}" />
-      <div class="store-overlay">
-        <div class="store-name">${loc.name}</div>
-        <div class="store-loc">${loc.city}, ${loc.country}</div>
-      </div>
-    </div>
-  `).join('');
- 
-  // Regions
-  document.getElementById('regions').innerHTML = regionalData.map((r, i) => `
-    <div>
-      <div class="region">
-        <div class="region-top">
-          <span class="region-name">${r.region}</span>
-          <div style="display:flex; align-items:baseline; gap:12px;">
-            <span class="region-stores">${r.stores} stores</span>
-            <span class="region-pct">${r.pct}%</span>
-          </div>
-        </div>
-        <div class="region-bar"><div class="region-fill" style="width:${r.pct}%"></div></div>
-      </div>
-      ${i < regionalData.length-1 ? '<div class="divider"></div>' : ''}
-    </div>
-  `).join('');
 </script>
 </body>
 </html>
